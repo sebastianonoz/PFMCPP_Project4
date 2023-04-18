@@ -239,7 +239,7 @@ struct IntType
     {
         if (rhs == 0) 
         {
-            std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
+            std::cout << "error : integer division by zero is an error and will crash the program!" << std::endl;
         }
         else
         {
@@ -369,24 +369,24 @@ int main()
     std::cout << "FloatType add result=" << *ft.add( 2.0f ).value << std::endl;
     std::cout << "FloatType subtract result=" << *ft.subtract( 2.0f ).value << std::endl;
     std::cout << "FloatType multiply result=" << *ft.multiply( 2.0f ).value << std::endl;
-    std::cout << "FloatType divide result=" << *ft.divide( 16.0f).value << std::endl << std::endl;
+    std::cout << "FloatType divide result=" << *ft.divide( 16.0f).value << std::endl;
 
     std::cout << "DoubleType add result=" << *dt.add(2.0).value << std::endl;
     std::cout << "DoubleType subtract result=" << *dt.subtract(2.0).value << std::endl;
     std::cout << "DoubleType multiply result=" << *dt.multiply(2.0).value << std::endl;
-    std::cout << "DoubleType divide result=" << *dt.divide(5.f).value << std::endl << std::endl;
+    std::cout << "DoubleType divide result=" << *dt.divide(5.f).value << std::endl;
 
     std::cout << "IntType add result=" << *it.add(2).value << std::endl;
     std::cout << "IntType subtract result=" << *it.subtract(2).value << std::endl;
     std::cout << "IntType multiply result=" << *it.multiply(2).value << std::endl;
-    std::cout << "IntType divide result=" << *it.divide(3).value << std::endl << std::endl;
+    std::cout << "IntType divide result=" << *it.divide(3).value << std::endl;
     std::cout << "Chain calculation = " << *+(it.multiply(1000).divide(2).subtract(10).add(100)).value << std::endl;
 
         // FloatType object instanciation and method tests
     // --------
     std::cout << "New value of ft = (ft + 3.0f) * 1.5f / 5.0f = " << *ft.add( 3.0f ).multiply(1.5f).divide(5.0f).value << std::endl;
        
-    std::cout << "---------------------\n" << std::endl; 
+    std::cout << "---------------------" << std::endl; 
     
     // DoubleType/IntType object instanciation and method tests
     // --------
@@ -396,7 +396,7 @@ int main()
     std::cout << "Use of function concatenation (mixed type arguments) " << std::endl;
     std::cout << "New value of dt = (dt * it) / 5.0f + ft = " << *(dt.multiply(it).divide(5.0f).add(ft).value) << std::endl;
 
-    std::cout << "---------------------\n" << std::endl; 
+    std::cout << "---------------------" << std::endl; 
     
     // Intercept division by 0
     // --------
@@ -405,7 +405,7 @@ int main()
     std::cout << "New value of ft = ft / 0 = " << *ft.divide(0).value << std::endl;
     std::cout << "New value of dt = dt / 0 = " << *dt.divide(0).value << std::endl;
 
-    std::cout << "---------------------\n" << std::endl; 
+    std::cout << "---------------------" << std::endl; 
 
     std::cout << "good to go!\n";
 
