@@ -1,4 +1,4 @@
-/*
+ /*
  Project 4 - Part 2 / 9
  Video: Chapter 3 Part 6
  Create a branch named Part2
@@ -148,8 +148,7 @@ struct FloatType
     
     FloatType& divide( float rhs )
     {
-        if (rhs == 0.0f) std::cout << "warning: floating point division by zero!" << std::endl;
-        *value /= rhs;
+            *value /= rhs;
         return *this;
     }
 
@@ -194,7 +193,7 @@ struct DoubleType
     DoubleType& divide( double rhs )
     {
         if (rhs == 0.0) std::cout << "warning: floating point division by zero!" << std::endl;
-        *value /= rhs;
+            *value /= rhs;
         return *this;
     }
     DoubleType& divide( FloatType& ft);
