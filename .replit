@@ -1,6 +1,7 @@
 language = "cpp"
 run = "clang++ -std=c++17 -Weverything -Wno-c++98-compat -Wno-missing-prototypes main.cpp && ./a.out"
 hidden = ["ccls"]
+entrypoint = "main.cpp"
 
 [nix]
 channel = "stable-22_11"
@@ -55,3 +56,14 @@ type = "cppdbg"
 description = "Enable pretty-printing for gdb"
 ignoreFailures = true
 text = "-enable-pretty-printing"
+
+[languages]
+
+[languages.cpp]
+pattern = "**/*.{cpp,h}"
+
+[languages.cpp.languageServer]
+start = "ccls"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", ".ccls-cache"]
