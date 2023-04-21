@@ -182,6 +182,89 @@ struct IntType
 };
 
 
+FloatType& FloatType::add( float rhs )
+{
+    
+    *value += rhs;
+    return *this;
+}
+
+FloatType& FloatType::subtract( float rhs )
+{
+    *value -= rhs;
+    return *this;    
+}
+
+FloatType& FloatType::multiply( float rhs )
+{
+    *value *= rhs;
+    return *this;    
+}
+
+FloatType& FloatType::divide( float rhs )
+{
+    if (rhs == 0.0f) std::cout << "warning: floating point division by zero!" << std::endl;
+    *value /= rhs;
+    return *this;
+}
+
+DoubleType& DoubleType::add( double rhs )
+{
+    *value += rhs;
+    return *this;    
+}
+
+DoubleType& DoubleType::subtract( double rhs )
+{
+    *value -= rhs;
+    return *this;
+}
+
+DoubleType& DoubleType::multiply( double rhs )
+{
+    *value *= rhs;
+    return *this;
+}
+
+DoubleType& DoubleType::divide( double rhs )
+{
+    if (rhs == 0.0) std::cout << "warning: floating point division by zero!" << std::endl;
+    *value /= rhs;
+    return *this;
+}
+
+
+IntType& IntType::add( int rhs )
+{
+    *value += rhs;
+    return *this;
+}
+
+IntType& IntType::subtract( int rhs )
+{
+    *value -= rhs;
+    return *this;
+}
+
+IntType& IntType::multiply( int rhs )
+{
+    *value *= rhs;
+    return *this;
+}
+
+IntType& IntType::divide( int rhs )
+{
+    if (rhs == 0) 
+    {
+        std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
+    }
+    else
+    {
+        *value /= rhs;
+    }
+    return *this;
+}
+
 void part3()
 {
     FloatType ft( 5.5f );
