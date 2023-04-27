@@ -27,30 +27,30 @@ Do not delete your previous main.
  5) delete the example below after it makes sense how your code will change due to 1).
  */
 
-#include <iostream>
-namespace Example
-{
-    int main()
-    {
-        FloatType floatNum(4.3f);
-        IntType intNum(2);
-        IntType intNum2(6);
+// #include <iostream>
+// namespace Example
+// {
+//     int main()
+//     {
+//         FloatType floatNum(4.3f);
+//         IntType intNum(2);
+//         IntType intNum2(6);
 
-        /* 
-        if you previously had a line like this demonstrating chaining:
+//         /* 
+//         if you previously had a line like this demonstrating chaining:
             
-            intNum.add(3).add(4.5f).divide(floatNum); 
+//             intNum.add(3).add(4.5f).divide(floatNum); 
 
-        it should become:
-        */
-        intNum += 3;
-        intNum += 4.5f;
-        intNum /= floatNum;
-        std::cout << "intNum: " << intNum << std::endl;
+//         it should become:
+//         */
+//         intNum += 3;
+//         intNum += 4.5f;
+//         intNum /= floatNum;
+//         std::cout << "intNum: " << intNum << std::endl;
         
-        return 0;
-    }
-}
+//         return 0;
+//     }
+// }
 
  /*
  6) compile/link/run to make sure you don't have any errors or warnings.
@@ -196,13 +196,21 @@ struct FloatType
     {
         delete value;
     }
-    FloatType& add( float rhs );
+    FloatType& operator+=( float rhs );
 
-    FloatType& subtract( float rhs );
+    FloatType& operator-=( float rhs );
 
-    FloatType& multiply( float rhs );
+    FloatType& operator*=( float rhs );
     
-    FloatType& divide( float rhs );
+    FloatType& operator/=( float rhs );
+
+    FloatType& add(float rhs);
+
+    FloatType& subtract(float rhs);
+
+    FloatType& multiply(float rhs);
+
+    FloatType& divide(float rhs);
 
     FloatType& pow(const IntType&);
     FloatType& pow(const FloatType&);
@@ -223,6 +231,14 @@ struct DoubleType
     {
         delete value;
     }
+
+    DoubleType& operator+=( double rhs );
+
+    DoubleType& operator-=( double rhs );
+ 
+    DoubleType& operator*=( double rhs );
+
+    DoubleType& operator/=( double rhs );
 
     DoubleType& add( double rhs );
 
@@ -251,6 +267,14 @@ struct IntType
     {
         delete value;
     }
+
+    IntType& operator+=( int rhs );
+
+    IntType& operator-=( int rhs );
+
+    IntType& operator*=( int rhs );
+
+    IntType& operator/=( int rhs );
 
     IntType& add( int rhs );
 
@@ -300,6 +324,35 @@ FloatType& FloatType::divide( float rhs )
     return *this;
 }
 
+FloatType& FloatType::operator+=( float rhs )
+{
+    *value += rhs;
+    return *this;
+}
+
+FloatType& FloatType::operator-=( float rhs )
+{
+    *value -= rhs;
+    return *this;
+}
+
+FloatType& FloatType::operator*=( float rhs )
+{
+    *value *= rhs;
+    return *this;
+}
+
+FloatType& FloatType::operator/=( float rhs )
+{
+    if(rhs == 0.0f)
+    {
+        std::cout << "warning: floating point division by zero!" << std::endl;
+    }
+    *value /= rhs;
+    return *this;
+}
+
+
 FloatType& FloatType::powInternal( float arg )
 {
     *value = std::pow(*value, arg);
@@ -348,6 +401,34 @@ DoubleType& DoubleType::multiply( double rhs )
 DoubleType& DoubleType::divide( double rhs )
 {
     if (rhs == 0.0) std::cout << "warning: floating point division by zero!" << std::endl;
+    *value /= rhs;
+    return *this;
+}
+
+DoubleType& DoubleType::operator+=( double rhs )
+{
+    *value += rhs;
+    return *this;
+}
+
+DoubleType& DoubleType::operator-=( double rhs )
+{
+    *value -= rhs;
+    return *this;
+}
+
+DoubleType& DoubleType::operator*=( double rhs) 
+{
+    *value *= rhs;
+    return *this;
+}
+
+DoubleType& DoubleType::operator/=( double rhs )
+{
+    if(rhs == 0.0)
+    {
+        std::cout << "warning: floating point division by zero!" <<  std::endl;
+    }
     *value /= rhs;
     return *this;
 }
@@ -406,6 +487,35 @@ IntType& IntType::divide( int rhs )
     {
         *value /= rhs;
     }
+    return *this;
+}
+
+IntType& IntType::operator+=( int rhs )
+{
+    *value += rhs;
+    return *this;
+}
+
+IntType& IntType::operator-=( int rhs )
+{
+    *value -= rhs;
+    return *this;
+}
+
+IntType& IntType::operator*=( int rhs )
+{
+    *value *= rhs;
+    return *this;
+}
+
+IntType& IntType::operator/=( int rhs )
+{
+    if(rhs == 0)
+    {
+        std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
+        return *this;
+    }
+    *value /= rhs;
     return *this;
 }
 
