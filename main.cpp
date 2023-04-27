@@ -179,14 +179,6 @@ struct FloatType
     
     FloatType& operator/=( float rhs );
 
-    FloatType& add(float rhs);
-
-    FloatType& subtract(float rhs);
-
-    FloatType& multiply(float rhs);
-
-    FloatType& divide(float rhs);
-
     FloatType& pow(const IntType&);
     FloatType& pow(const FloatType&);
     FloatType& pow(const DoubleType&);
@@ -214,14 +206,6 @@ struct DoubleType
     DoubleType& operator*=( double rhs );
 
     DoubleType& operator/=( double rhs );
-
-    DoubleType& add( double rhs );
-
-    DoubleType& subtract( double rhs );
- 
-    DoubleType& multiply( double rhs );
-
-    DoubleType& divide( double rhs );
 
     operator double() const {return *value;}
 
@@ -251,14 +235,6 @@ struct IntType
 
     IntType& operator/=( int rhs );
 
-    IntType& add( int rhs );
-
-    IntType& subtract( int rhs );
-
-    IntType& multiply( int rhs );
-
-    IntType& divide( int rhs );
-
     operator int() const {return *value;}
 
     IntType& pow(const IntType&);
@@ -272,32 +248,6 @@ private:
     int* value = nullptr;
 };
 
-
-FloatType& FloatType::add( float rhs )
-{
-    
-    *value += rhs;
-    return *this;
-}
-
-FloatType& FloatType::subtract( float rhs )
-{
-    *value -= rhs;
-    return *this;    
-}
-
-FloatType& FloatType::multiply( float rhs )
-{
-    *value *= rhs;
-    return *this;    
-}
-
-FloatType& FloatType::divide( float rhs )
-{
-    if (rhs == 0.0f) std::cout << "warning: floating point division by zero!" << std::endl;
-    *value /= rhs;
-    return *this;
-}
 
 FloatType& FloatType::operator+=( float rhs )
 {
@@ -355,30 +305,6 @@ FloatType& FloatType::pow(float arg)
 }
 
 
-DoubleType& DoubleType::add( double rhs )
-{
-    *value += rhs;
-    return *this;    
-}
-
-DoubleType& DoubleType::subtract( double rhs )
-{
-    *value -= rhs;
-    return *this;
-}
-
-DoubleType& DoubleType::multiply( double rhs )
-{
-    *value *= rhs;
-    return *this;
-}
-
-DoubleType& DoubleType::divide( double rhs )
-{
-    if (rhs == 0.0) std::cout << "warning: floating point division by zero!" << std::endl;
-    *value /= rhs;
-    return *this;
-}
 
 DoubleType& DoubleType::operator+=( double rhs )
 {
@@ -432,37 +358,6 @@ DoubleType& DoubleType::pow (const DoubleType& arg)
 DoubleType& DoubleType::pow (double arg)
 {
     return powInternal (arg);
-}
-
-IntType& IntType::add( int rhs )
-{
-    *value += rhs;
-    return *this;
-}
-
-IntType& IntType::subtract( int rhs )
-{
-    *value -= rhs;
-    return *this;
-}
-
-IntType& IntType::multiply( int rhs )
-{
-    *value *= rhs;
-    return *this;
-}
-
-IntType& IntType::divide( int rhs )
-{
-    if (rhs == 0) 
-    {
-        std::cout << "error: integer division by zero is an error and will crash the program!" << std::endl;
-    }
-    else
-    {
-        *value /= rhs;
-    }
-    return *this;
 }
 
 IntType& IntType::operator+=( int rhs )
@@ -562,14 +457,35 @@ void part3()
     IntType it ( 34 );
     DoubleType pi( 3.14 );
 
-    std::cout << "The result of FloatType^4 divided by IntType is: " << ft.multiply( ft ).multiply( ft ).divide( static_cast<float>(it) ) << std::endl;
-    std::cout << "The result of DoubleType times 3 plus IntType is : " << dt.multiply( 3 ).add( it ) << std::endl;
-    std::cout << "The result of IntType divided by 3.14 multiplied by DoubleType minus FloatType is: " << it.divide( static_cast<int>(pi) ).multiply( static_cast<int>(dt) ).subtract( static_cast<int>(ft) ) << std::endl;
-    std::cout << "An operation followed by attempts to divide by 0, which are ignored and warns user: " << std::endl;
-    std::cout << it.multiply(it).divide(0).divide(0.0f).divide(0.0) << std::endl;
+    ft *= ft;
+    ft *= ft;
+    ft /= static_cast<float>(it);
+    std::cout << "The result of FloatType^4 divided by IntType is: " << ft << std::endl;
+
+    dt *= 3;
+    dt += it;
+    std::cout << "The result of DoubleType times 3 plus IntType is : " << dt << std::endl;
     
-    std::cout << "FloatType x IntType  =  " << it.multiply( static_cast<int>(ft) ) << std::endl;
-    std::cout << "(IntType + DoubleType + FloatType) x 24 = " << it.add( static_cast<int>(dt) ).add( static_cast<int>(ft) ).multiply( 24 ) << std::endl;
+    it /= static_cast<int>(pi);
+    it *= static_cast<int>(dt);
+    it -= static_cast<int>(ft); 
+    std::cout << "The result of IntType divided by 3.14 multiplied by DoubleType minus FloatType is: " << it << std::endl;
+
+    std::cout << "An operation followed by attempts to divide by 0, which are ignored and warns user: " << std::endl;
+
+    it *= it;
+    it /= 0;
+    it /= 0.0f;
+    it /= 0.0;        
+    std::cout << it << std::endl;
+
+    it *= static_cast<int>(ft);        
+    std::cout << "FloatType x IntType  =  " << it << std::endl;
+
+    it += static_cast<int>(dt);
+    it += static_cast<int>(ft);
+    it *= 24;
+    std::cout << "(IntType + DoubleType + FloatType) x 24 = " << it << std::endl;
 }
 
 void part4()
