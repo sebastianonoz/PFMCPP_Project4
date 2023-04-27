@@ -680,8 +680,8 @@ int main()
     std::cout << ft << std::endl;
 
     std::cout << "FloatType divide result=";
-    ft /= 2.0f;
-    std::cout << ft << std::endl;
+    ft /= 16.0f;
+    std::cout << ft << std::endl << std::endl;
 
     std::cout << "DoubleType add result=";
     dt += 2.0;
